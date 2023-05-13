@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const NavigationBar = () => {
+  const { user, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        localStorage.removeItem('car-access-token');
+      })
+      .catch((error) => error.message);
+  };
   const navItems = (
     <>
       <li>
@@ -20,8 +30,25 @@ const NavigationBar = () => {
       <li>
         <Link>Contact</Link>
       </li>
+      {user ? (
+        <>
+          <li>
+            <Link to="/bookings">My Bookings</Link>
+          </li>
+          <li>
+            <button className="btn text-white" onClick={handleLogout}>
+              Logout
+            </button>
+          </li>
+        </>
+      ) : (
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+      )}
     </>
   );
+
   return (
     <div className="navbar bg-base-100 h-28 mb-4">
       <div className="navbar-start">
