@@ -1,12 +1,8 @@
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useNavigation,
-} from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginImg from '../assets/images/login/login.svg';
 import { useContext } from 'react';
 import { AuthContext } from '../providers/AuthProvider';
+import SocialLogin from './shared/SocialLogin';
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
@@ -23,27 +19,8 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         const user = result.user;
-        const loggedUserEmail = {
-          email: user.email,
-        };
         console.log(user);
-
-        //now heading to jwt authorization
-        fetch('http://localhost:5000/jwt', {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(loggedUserEmail),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('jwt response', data);
-            //Warning: local storage is not the best way to store access token
-            localStorage.setItem('car-access-token', data.token);
-            navigate(from, { replace: true });
-          })
-          .catch((error) => console.log(error.message));
+        navigate(from, { replace: true });
       })
       .catch((error) => console.log(error.message));
   };
@@ -99,6 +76,7 @@ const Login = () => {
                   Register Here
                 </Link>
               </p>
+              <SocialLogin />
             </div>
           </div>
         </div>

@@ -11,7 +11,9 @@ const Checkout = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services/${params.id}`)
+    fetch(
+      `https://car-doctor-server-three-kappa.vercel.app/services/${params.id}`
+    )
       .then((response) => response.json())
       .then((data) => setServiceData(data))
       .catch((error) => error.message);
@@ -39,7 +41,7 @@ const Checkout = () => {
     };
     console.log(checkoutData);
 
-    fetch(`http://localhost:5000/checkout`, {
+    fetch(`https://car-doctor-server-three-kappa.vercel.app/checkout`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

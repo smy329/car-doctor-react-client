@@ -10,15 +10,18 @@ const Bookings = () => {
   const [bookings, setBookings] = useState([]);
   const navigate = useNavigate();
 
-  //const url = `http://localhost:5000/bookings?email=${user.email}`;
+  //const url = `https://car-doctor-server-three-kappa.vercel.app/bookings?email=${user.email}`;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/bookings?email=${user?.email}`, {
-      method: 'GET',
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('car-access-token')}`,
-      },
-    })
+    fetch(
+      `https://car-doctor-server-three-kappa.vercel.app/bookings?email=${user?.email}`,
+      {
+        method: 'GET',
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('car-access-token')}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (!data.error) {
@@ -41,9 +44,12 @@ const Bookings = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/bookings/${id}`, {
-          method: 'DELETE',
-        })
+        fetch(
+          `https://car-doctor-server-three-kappa.vercel.app/bookings/${id}`,
+          {
+            method: 'DELETE',
+          }
+        )
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
@@ -62,7 +68,7 @@ const Bookings = () => {
   };
 
   const handleBookingConfirm = (id) => {
-    fetch(`http://localhost:5000/bookings/${id}`, {
+    fetch(`https://car-doctor-server-three-kappa.vercel.app/bookings/${id}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',

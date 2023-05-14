@@ -8,9 +8,7 @@ const NavigationBar = () => {
 
   const handleLogout = () => {
     logout()
-      .then(() => {
-        localStorage.removeItem('car-access-token');
-      })
+      .then(() => {})
       .catch((error) => error.message);
   };
   const navItems = (
